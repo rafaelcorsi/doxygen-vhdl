@@ -1,0 +1,15 @@
+site_name: Doxygen and mkdocs
+theme:
+  name: 'material'
+  palette:
+    primary: 'black'
+    accent: 'pink'
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+docs_dir: docs-src
+site_dir: docs
+
+nav:
+- Home: 'index.md'
