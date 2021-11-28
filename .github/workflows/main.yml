@@ -12,7 +12,7 @@ jobs:
      
   # Build and deploy documentation site
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
 
@@ -24,10 +24,11 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      # pip
+      # requi
       - run: |
           pip install -r requirements.txt
           pip install mkdocs-minify-plugin>=0.2
+          sudo apt-get install doxygen
           
       # Set configuration for repository and deploy documentation
       - env:
@@ -44,3 +45,10 @@ jobs:
       - run: |
           mkdocs gh-deploy --force
           mkdocs --version
+
+          doxygen conf.cfg
+          git checkout gh-pages
+          git add doxygen doxygen
+          git commit -m "doxygen updated"
+
+          git push origin gh-pages
